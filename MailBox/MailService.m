@@ -26,18 +26,26 @@
 	return service;
 }
 
-- (void)configureWithHostname:(NSString *)hostname port:(unsigned int)port username:(NSString *)username password:(NSString *)password
+- (void)configureWithHostname:(NSString *)hostname port:(unsigned int)port username:(NSString *)username password:(NSString *)password completion:(void (^)(NSError *error))completionBlock
 {
 	if (self.session) {
 		MCOIMAPOperation *op = [self.session disconnectOperation];
-		[op start:nil];
+		[op start:^(NSError *error) {
+			NSLog(@"%@", error.localizedDescription);
+		}];
 	}
 	MCOIMAPSession *session = [MCOIMAPSession new];
 	session.connectionType = MCOConnectionTypeTLS;
+	session.authType = MCOAuthTypeXOAuth2Outlook;
 	session.hostname = hostname;
 	session.port = port;
 	session.username = username;
 	session.password = password;
+	[session.checkAccountOperation start:^(NSError *error) {
+		if (completionBlock) {
+			completionBlock(error);
+		}
+	}];
 	self.session = session;
 }
 

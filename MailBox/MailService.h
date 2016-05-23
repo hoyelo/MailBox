@@ -12,7 +12,7 @@
 @interface MailService : NSObject
 
 + (instancetype)service;
-- (void)configureWithHostname:(NSString *)hostname port:(unsigned int)port username:(NSString *)username password:(NSString *)password;
+- (void)configureWithHostname:(NSString *)hostname port:(unsigned int)port username:(NSString *)username password:(NSString *)password completion:(void (^)(NSError *error))completionBlock;
 - (NSString *)folderName:(MCOIMAPFolder *)folder;
 - (void)fetchAllFolders:(void (^)(NSError *error, NSArray *folders))completionBlock;
 - (void)fetchMessages:(MCOIMAPFolder *)folder requestKind:(MCOIMAPMessagesRequestKind)kind uids:(MCOIndexSet *)uids completion:(void (^)(NSError *error, NSArray *messages, MCOIndexSet *vanishedMessages))completionBlock;

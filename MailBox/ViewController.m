@@ -77,8 +77,14 @@
 		return;
 	}
 	
-	[MailService.service configureWithHostname:self.serverField.text port:[self.portField.text intValue] username:self.emailField.text password:self.passwordField.text];
-	[self performSegueWithIdentifier:@"save" sender:nil];
+	[SVProgressHUD show];
+	[MailService.service configureWithHostname:self.serverField.text port:[self.portField.text intValue] username:self.emailField.text password:self.passwordField.text completion:^(NSError *error) {
+		if (error) {
+			[SVProgressHUD showErrorWithStatus:error.localizedDescription];
+		} else {
+			[self performSegueWithIdentifier:@"save" sender:nil];
+		}
+	}];
 }
 
 #pragma mark - UITextFieldDelegate
