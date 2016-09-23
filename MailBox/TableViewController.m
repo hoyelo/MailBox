@@ -22,7 +22,7 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-	[SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+	[SVProgressHUD show];
 	__weak __typeof(self)weakSelf = self;
 	[MailService.service fetchAllFolders:^(NSError *error, NSArray *folders) {
 		if (error) {

@@ -36,7 +36,7 @@
 	}
 	MCOIMAPSession *session = [MCOIMAPSession new];
 	session.connectionType = MCOConnectionTypeTLS;
-	session.authType = MCOAuthTypeXOAuth2Outlook;
+	session.authType = MCOAuthTypeSASLNone;
 	session.hostname = hostname;
 	session.port = port;
 	session.username = username;

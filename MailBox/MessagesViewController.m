@@ -22,7 +22,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeClear];
+	[SVProgressHUD show];
 	__weak __typeof(self)weakSelf = self;
 	[MailService.service fetchMessages:self.folder requestKind:MCOIMAPMessagesRequestKindHeaders uids:[MCOIndexSet indexSetWithRange:MCORangeMake(1,UINT64_MAX)] completion:^(NSError *error, NSArray *messages, MCOIndexSet *vanishedMessages) {
 		if (error) {
